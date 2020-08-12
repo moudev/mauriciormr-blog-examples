@@ -1,0 +1,64 @@
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ejemplos | Fetch API & axios</title>
+  </head>
+  <body>
+    <h1>Ejemplos | Fetch API & axios</h1>
+    <a href="https://mauriciormr.xyz/posts/i53-solo-has-hecho-peticiones-http-con-ajax-existen-alternativas" target="_blank">
+      ¿Solo has hecho peticiones HTTP con AJAX?... Existen alternativas
+    </a>
+    <p>Nota: Se debe de inspeccionar elemento y revisar la consola. Haciendo uso de axios, fetch y JQuery</p>
+    <button id="fetch">
+      Hacer petición Fetch
+    </button>
+    <button id="axios">
+      Hacer petición Axios
+    </button>
+    <div>
+      <p>Respuesta fetch</p>
+      <div id="response-fetch"></div>
+    </div>
+    <div>
+      <p>Respuesta axios</p>
+      <div id="response-axios"></div>
+    </div>
+  </body>
+</html>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+function makeRequestFetch() {
+  fetch("https://api.github.com/users/moudev")
+    .then((res) => {
+      console.log("[fetch] Respuesta sin procesar", res)
+      return res.json()
+    })
+    .then((re) => {
+      console.log("[fetch] Respuesta procesada", re)
+      $("#response-fetch").html(JSON.stringify(re))
+    })
+    .catch((err) => console.log("[fetch] Error", err))
+}
+
+$("#fetch").click(() => {
+  makeRequestFetch()
+})
+</script>
+<script>
+function makeRequestAxios() {
+  axios.get("https://api.github.com/users/moudev")
+       .then((res) => {
+         console.log("[axios] Respuesta sin procesar", res)
+         console.log("[axios] Respuesta procesada", res.data)
+         $("#response-axios").html(JSON.stringify(res.data))
+       })
+       .catch((err) => {
+         console.log("[axios] Error", err)
+       })
+}
+
+$("#axios").click(() => {
+  makeRequestAxios()
+})
+</script>
